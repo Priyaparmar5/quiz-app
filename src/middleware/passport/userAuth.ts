@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import  passport from "passport";
 import generalResponse from "../../helper/generalResponse";
 import User from '../../models/Users';
+import jwt from "jsonwebtoken";
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
@@ -10,7 +11,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (err) {
       return next(err);
     }
-    console.log(user,"userrr");
+    console.log(user,"userrr>>");
 
     if (!user) {
       return generalResponse(

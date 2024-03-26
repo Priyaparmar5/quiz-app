@@ -10,6 +10,5 @@ indexRoute.use("/", [
   userRoute,
   quizRoute
 ]);
-console.log("heyyy");
 
 export default indexRoute;

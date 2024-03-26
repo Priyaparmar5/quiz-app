@@ -1,4 +1,4 @@
-import  passport from "passport";
+import passport from "passport";
 import passportStrategy, { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import User, { IUser } from "../../models/Users";
 
@@ -9,13 +9,17 @@ const opts = {
   secretOrKey: "dWVfANWoYSa7KeWRsnz9OVmQyEF7FFg+",
 };
 
+interface UserPayload {
+  email: string;
+}
+
 export const findOneUser = (criteria: any) => {
   return User.findOne(criteria).lean();
 };
 
 console.log("hi,,");
 
-passport.use("jwt",new JWTStrategy(opts, async (payload: any, done: any) => {
+passport.use("jwt",new JWTStrategy(opts, async (payload: UserPayload, done: any) => {
     try {
       console.log("inn");
       
