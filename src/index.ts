@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 const dotEnv = require('dotenv');
 //import './middleware/passport/passport';
 import  passport  from "passport";
-
+import  "./middleware/passport/passport"; 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -19,7 +19,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/quizApp')
   .catch(err => console.error(err));
 
 app.use(indexRoute);
-//app.use(passport.initialize());
+app.use(passport.initialize());
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -1,32 +1,20 @@
+// userAuth.ts
+import passport from "passport";
 import { Request, Response, NextFunction } from "express";
-import  passport from "passport";
-import generalResponse from "../../helper/generalResponse";
-import User from '../../models/Users';
-import jwt from "jsonwebtoken";
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-
-  // Use passport.authenticate within the middleware
-  passport.authenticate('jwt', { session: false }, (err: Error, user: any) => {
-    if (err) {
-      return next(err);
-    }
-    console.log(user,"userrr>>");
-
-    if (!user) {
-      return generalResponse(
-        res,
-        [],
-        "Your token has expired",
-        "error",
-        401,
-        true
-      );
-    } else {
-      req.user = user;
-      return next();
-    }
-  })(req, res, next);
+    passport.authenticate("jwt", { session: false }, (err:any, user:any, info:any) => {
+        if (err) {
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        console.log(user,"ussss");
+        
+        if (!user) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        req.user = user; 
+        next();
+    })(req, res, next);
 };
 
 export default authMiddleware;
